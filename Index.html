@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SUPER BUG ZAPPER</title>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div class="score" style="display: none;">
+            <div class="score_content">
+                <h1>Score: </h1>
+                <h1><span id="userScore">0</span></h1>
+                <h1 id="win" class="result" style="font-size: 35px; margin-right: 45px;"></h1>
+            </div>
+        </div>
+
+        <canvas id="gl-canvas" width="512" height="512">
+            Browser does not support HTML5. 
+        </canvas>
+
+        <button onclick="refreshPage()" class="button" style="display: none;"><b>Try Again</b></button>
+    </div>
+
+    <script>
+        function refreshPage() {
+            location.reload();
+        }
+
+        function initializeCanvas() {
+            document.getElementById('gl-canvas').style.display = 'block';
+            document.querySelector('.score').style.display = 'block';
+            document.querySelector('.button').style.display = 'block';
+            
+            const numOfBac = Math.floor(Math.random() * 10) + 1;
+            console.log('Number of bacteria:', numOfBac);
+            main(numOfBac, 1.5);
+        }
+
+        window.onload = initializeCanvas;
+        
+        let mouseIsWithinCanvas = false;
+        canvas = document.getElementById('gl-canvas');
+        canvas.addEventListener('mouseenter', function() {
+            mouseIsWithinCanvas = true;
+            updateMousePosition(mouseIsWithinCanvas);
+        });
+
+        canvas.addEventListener('mouseleave', function() {
+            mouseIsWithinCanvas = false;
+            updateMousePosition(mouseIsWithinCanvas);
+        });
+    </script>
+</body>
+</html>
